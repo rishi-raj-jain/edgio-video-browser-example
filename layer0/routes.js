@@ -40,12 +40,12 @@ const router = new Router()
   // it on the edge so that can be prefetched
   .match('/_next/data/:path*', NEXT_CACHE_HANDLER)
   // Asset caching
-  .match('/logo/:path*', ASSET_CACHE_HANDLER)
   .match('/_next/static/:path*', ASSET_CACHE_HANDLER)
   // API (Any backend) caching
   .match('/l0-api/:path*', API_CACHE_HANDLER)
   // Image caching
   .match('/l0-opt', IMAGE_CACHE_HANDLER)
+  // Serve the public folder
   .static('public')
   // Use the default set of Next.js routes
   .fallback(({ renderWithApp }) => {
