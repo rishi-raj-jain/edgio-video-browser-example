@@ -1,5 +1,5 @@
 module.exports = {
-  connector: './layer0',
+  connector: '@layer0/next',
   routes: './layer0/routes.js',
   backends: {
     // Define a domain or IP address to proxy as a backend
