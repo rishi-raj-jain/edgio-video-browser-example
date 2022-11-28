@@ -1,25 +1,27 @@
-import { nextRoutes } from '@layer0/next'
-import { Router } from '@layer0/core/router'
-import getPathsToPrerender from '@/layer0/prerenderRequests'
-import { API_CACHE_HANDLER, ASSET_CACHE_HANDLER, NEXT_CACHE_HANDLER, IMAGE_CACHE_HANDLER } from './cache'
+// This file was automatically added by edgio deploy.
+// You should commit this file to source control.
+
+import { nextRoutes } from '@edgio/next'
+import { Router } from '@edgio/core/router'
+import getPathsToPrerender from './edgio/prerenderRequests'
+import { API_CACHE_HANDLER, ASSET_CACHE_HANDLER, IMAGE_CACHE_HANDLER, NEXT_CACHE_HANDLER } from './edgio/cache'
+
+// Remove this line to suppress Next's default behavior of removing trailing slashes via a redirect.
+// If trailingSlash: true is set in next.config.js, removing this line will remove the redirect that adds the trailing slash.
+nextRoutes.setEnforceTrailingSlash(true)
 
 export default new Router()
   // Regex to catch multiple hostnames
   // Any deployment will have a L0 permalink
   // Don't allow Google bot to crawl it, read more on:
-  // https://docs.layer0.co/guides/cookbook#blocking-search-engine-crawlers
+  // https://docs.edg.io/guides/cookbook#blocking-search-engine-crawlers
   .noIndexPermalink()
   // Pre-render the static home page
   // By pre-rendering, once the project is deployed
   // the set of links are visited to warm the cache
   // for future visits (expected to be the first view for real users)
-  // More on static prerendering: https://docs.layer0.co/guides/static_prerendering
+  // More on static prerendering: https://docs.edg.io/guides/static_prerendering
   .prerender(getPathsToPrerender)
-  // Serve the old Layer0 predefined routes by the latest prefix
-  .match('/__xdn__/:path*', ({ redirect }) => {
-    redirect('/__layer0__/:path*', 301)
-  })
-  // Serve the compiled service worker with Layer0 prefetcher working
   .match('/service-worker.js', ({ serviceWorker }) => {
     return serviceWorker('.next/static/service-worker.js')
   })
@@ -34,4 +36,4 @@ export default new Router()
   // Image caching
   .match('/l0-opt', IMAGE_CACHE_HANDLER)
   // Use the default set of Next.js routes
-  .use(nextRoutes)
+  .use(nextRoutes) // automatically adds routes for all files under /pages

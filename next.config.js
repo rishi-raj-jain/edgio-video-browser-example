@@ -1,18 +1,22 @@
-// This file was automatically added by layer0 init.
+// This file was automatically added by edgio init.
 // You should commit this file to source control.
-const { withLayer0, withServiceWorker } = require('@layer0/next/config')
 
-const _preLayer0Export = {
+const { withEdgio, withServiceWorker } = require('@edgio/next/config')
+
+const _preEdgioExport = {
   output: 'standalone',
 }
 
 module.exports = (phase, config) =>
-  withLayer0(
+  withEdgio(
     withServiceWorker({
-      // Output sourcemaps so that stack traces have original source filenames and line numbers when tailing
-      // the logs in the Layer0 developer console.
-      layer0SourceMaps: true,
+      ..._preEdgioExport,
 
-      ..._preLayer0Export,
+      // Output sourcemaps so that stack traces have original source filenames and line numbers when tailing
+      // the logs in the Edgio developer console.
+      edgioSourceMaps: false,
+
+      // Set the following to `true` to disable the Edgio dev tools.
+      disableEdgioDevTools: false,
     })
   )
