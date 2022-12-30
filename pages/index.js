@@ -1,6 +1,16 @@
 import Item from '@/components/Item'
 import { getOrigin } from '@/lib/helper'
 
+export async function getServerSideProps({ req }) {
+  const fetchCall = await fetch(`${getOrigin(req)}/l0-api/schedule?country=US&date=2014-12-01`)
+  const data = await fetchCall.json()
+  return {
+    props: {
+      data,
+    },
+  }
+}
+
 const Home = ({ data }) => {
   return (
     <>
@@ -21,13 +31,3 @@ const Home = ({ data }) => {
 }
 
 export default Home
-
-export async function getServerSideProps({ req }) {
-  const fetchCall = await fetch(`${getOrigin(req)}/l0-api/schedule?country=US&date=2014-12-01`)
-  const data = await fetchCall.json()
-  return {
-    props: {
-      data,
-    },
-  }
-}

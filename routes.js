@@ -1,4 +1,4 @@
-// This file was automatically added by edgio deploy.
+// This file was automatically added by edgio init.
 // You should commit this file to source control.
 
 import { nextRoutes } from '@edgio/next'
@@ -10,12 +10,7 @@ import { API_CACHE_HANDLER, ASSET_CACHE_HANDLER, IMAGE_CACHE_HANDLER, NEXT_CACHE
 // If trailingSlash: true is set in next.config.js, removing this line will remove the redirect that adds the trailing slash.
 nextRoutes.setEnforceTrailingSlash(true)
 
-export default new Router()
-  // Regex to catch multiple hostnames
-  // Any deployment will have a L0 permalink
-  // Don't allow Google bot to crawl it, read more on:
-  // https://docs.edg.io/guides/cookbook#blocking-search-engine-crawlers
-  .noIndexPermalink()
+export default new Router({ indexPermalink: false })
   // Pre-render the static home page
   // By pre-rendering, once the project is deployed
   // the set of links are visited to warm the cache
@@ -23,7 +18,7 @@ export default new Router()
   // More on static prerendering: https://docs.edg.io/guides/static_prerendering
   .prerender(getPathsToPrerender)
   .match('/service-worker.js', ({ serviceWorker }) => {
-    return serviceWorker('.next/static/service-worker.js')
+    serviceWorker('.next/static/service-worker.js')
   })
   // The data in Next.js comes through _next/data/project-build-id route.
   // For the route /product/product-slug, cache this SSR route's data
@@ -36,4 +31,5 @@ export default new Router()
   // Image caching
   .match('/l0-opt', IMAGE_CACHE_HANDLER)
   // Use the default set of Next.js routes
-  .use(nextRoutes) // automatically adds routes for all files under /pages
+  // automatically adds routes for all files under /pages
+  .use(nextRoutes)

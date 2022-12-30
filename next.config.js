@@ -3,15 +3,9 @@
 
 const { withEdgio, withServiceWorker } = require('@edgio/next/config')
 
-const _preEdgioExport = {
-  output: 'standalone',
-}
-
 module.exports = (phase, config) =>
   withEdgio(
     withServiceWorker({
-      ..._preEdgioExport,
-
       // Output sourcemaps so that stack traces have original source filenames and line numbers when tailing
       // the logs in the Edgio developer console.
       edgioSourceMaps: false,

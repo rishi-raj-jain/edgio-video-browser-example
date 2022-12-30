@@ -1,6 +1,16 @@
 import Rating from '@/components/Rating'
 import { relativizeURL, getOrigin } from '@/lib/helper'
 
+export async function getServerSideProps({ req, params }) {
+  const fetchCall = await fetch(`${getOrigin(req)}/l0-api/shows/${params.id}`)
+  const data = await fetchCall.json()
+  return {
+    props: {
+      data,
+    },
+  }
+}
+
 const Show = ({ data }) => {
   let image = data.image.hasOwnProperty('medium') ? data.image['medium'] : data.image['original']
   return (
@@ -95,13 +105,3 @@ const Show = ({ data }) => {
 }
 
 export default Show
-
-export async function getServerSideProps({ req, params }) {
-  const fetchCall = await fetch(`${getOrigin(req)}/l0-api/shows/${params.id}`)
-  const data = await fetchCall.json()
-  return {
-    props: {
-      data,
-    },
-  }
-}
