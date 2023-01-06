@@ -21,7 +21,7 @@
     "@edgio/devtools": "^6.0.5",
     "@edgio/next": "^6.0.5",
     "@edgio/prefetch": "^6.0.5",
-    "@edgio/react": "^6.0.5",
+    "@edgio/react": "^6.0.6",
     "@edgio/rum": "^6.0.0",
     "@heroicons/react": "^2.0.13",
     "autoprefixer": "^10.4.7",
